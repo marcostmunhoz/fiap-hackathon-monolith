@@ -6,19 +6,19 @@ use App\Shared\Domain\Exception\InvalidValueException;
 use Stringable;
 
 /**
- * @template T
+ * @template TValue
  *
- * @property T $value
+ * @property TValue $value
  */
 readonly abstract class AbstractValueObject implements Stringable
 {
     /**
-     * @param T $value
+     * @param TValue $value
      */
     public protected(set) mixed $value;
 
     /**
-     * @param T $value
+     * @param TValue $value
      */
     public function __construct(mixed $value)
     {
@@ -31,12 +31,15 @@ readonly abstract class AbstractValueObject implements Stringable
     }
 
     /**
-     * @param T $value
+     * @param TValue $value
      *
-     * @return T
+     * @return TValue
      */
     abstract protected function sanitize(mixed $value): mixed;
 
+    /**
+     * @param self<TValue> $other
+     */
     public function equals(self $other): bool
     {
         return $this->value === $other->value;

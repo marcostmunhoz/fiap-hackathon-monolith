@@ -13,8 +13,6 @@ use DateTimeZone;
  */
 readonly class DateTime extends AbstractValueObject
 {
-    private const string INTERVAL_MINUTES = 'minutes';
-
     public function __toString(): string
     {
         return $this->value->format(DateTimeInterface::ATOM);

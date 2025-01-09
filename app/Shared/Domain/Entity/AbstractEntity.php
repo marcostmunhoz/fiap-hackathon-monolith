@@ -9,6 +9,7 @@ use JsonSerializable;
 
 /**
  * @template TEntityArray of array<string, mixed>
+ * @template-implements Arrayable<string, mixed>
  *
  * @codeCoverageIgnore
  */
@@ -59,6 +60,8 @@ abstract class AbstractEntity implements Arrayable, JsonSerializable
 
     /**
      * @param TEntityArray $data
+     *
+     * @return self<TEntityArray>
      */
-    abstract public static function fromArray(array $data): static;
+    abstract public static function fromArray(array $data): self;
 }

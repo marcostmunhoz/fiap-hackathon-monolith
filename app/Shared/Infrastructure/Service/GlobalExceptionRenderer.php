@@ -16,6 +16,9 @@ use Illuminate\Validation\ValidationException as BaseValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
+/**
+ * @phpstan-import-type TMetadataArray from DomainException
+ */
 readonly class GlobalExceptionRenderer
 {
     public function __construct(
@@ -34,6 +37,9 @@ readonly class GlobalExceptionRenderer
         return $this->handleUnhandledException();
     }
 
+    /**
+     * @return class-string<Throwable>[]
+     */
     public function renders(): array
     {
         return [
@@ -56,6 +62,9 @@ readonly class GlobalExceptionRenderer
         };
     }
 
+    /**
+     * @param TMetadataArray $metadata
+     */
     private function formatResponse(string $errorCode, string $message, array $metadata, int $status): JsonResponse
     {
         return $this->responseFactory->json([

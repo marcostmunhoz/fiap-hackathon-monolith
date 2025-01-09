@@ -37,12 +37,8 @@ readonly class SignedJwtGenerator implements JwtGeneratorInterface
     {
         $key = new Key($this->appConfig->getJwtPublicKey(), self::ALGORITHM);
 
-        /**
-         * @var object{
-         *     sub: string,
-         *     exp: int,
-         * } $decoded
-         */
+        /** @var object{sub: string, exp: int} $decoded */
+        // @phpstan-ignore-next-line varTag.nativeType
         $decoded = JWT::decode($token, $key);
 
         return new JwtPayload(

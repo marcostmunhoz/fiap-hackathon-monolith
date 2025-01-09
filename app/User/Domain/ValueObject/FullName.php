@@ -9,7 +9,9 @@ use App\Shared\Domain\ValueObject\AbstractValueObject;
  */
 readonly class FullName extends AbstractValueObject
 {
+    // @phpstan-ignore-next-line property.uninitializedReadonly
     public private(set) string $firstName;
+    // @phpstan-ignore-next-line property.uninitializedReadonly
     public private(set) string $lastName;
 
     protected function sanitize(mixed $value): string
@@ -23,7 +25,9 @@ readonly class FullName extends AbstractValueObject
             $this->throwInvalidValueException('The full name must have at least 2 parts.');
         }
 
+        // @phpstan-ignore-next-line property.readonlyAssignedNotInConstructor
         $this->firstName = array_shift($parts);
+        // @phpstan-ignore-next-line property.readonlyAssignedNotInConstructor
         $this->lastName = implode(' ', $parts);
 
         return "{$this->firstName} {$this->lastName}";

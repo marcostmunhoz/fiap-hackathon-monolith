@@ -9,5 +9,8 @@ use JsonSerializable;
  */
 readonly abstract class AbstractMessage implements JsonSerializable
 {
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function jsonSerialize(): array;
 }

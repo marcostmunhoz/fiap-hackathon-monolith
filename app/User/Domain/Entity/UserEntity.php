@@ -48,7 +48,7 @@ class UserEntity extends AbstractEntity
         return ['hashed_password'];
     }
 
-    public static function fromArray(array $data): static
+    public static function fromArray(array $data): self
     {
         return new self(
             new EntityId($data['id']),
