@@ -3,7 +3,7 @@
 namespace Tests\Unit\User\Domain\ValueObject;
 
 use App\Shared\Domain\Exception\InvalidValueException;
-use App\User\Domain\ValueObject\FullName;
+use App\Shared\Domain\ValueObject\FullName;
 
 test('sanitize ensures the input is a 2-parts full name', function () {
     // Given

@@ -4,13 +4,13 @@ namespace Tests\Unit\User\Application\UseCase;
 
 use App\Shared\Domain\Service\EntityIdGeneratorInterface;
 use App\Shared\Domain\Service\MessageProducerInterface;
+use App\Shared\Domain\ValueObject\Email;
 use App\User\Application\DTO\RegisterUserInput;
 use App\User\Application\UseCase\RegisterUserUseCase;
 use App\User\Domain\Entity\UserEntity;
 use App\User\Domain\Exception\UserEmailAlreadyRegisteredException;
 use App\User\Domain\Repository\UserRepositoryInterface;
 use App\User\Domain\Service\PasswordHasherInterface;
-use App\User\Domain\ValueObject\Email;
 use Mockery;
 
 beforeEach(function () {

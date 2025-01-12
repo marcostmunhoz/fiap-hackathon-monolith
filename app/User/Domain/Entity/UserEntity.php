@@ -4,9 +4,9 @@ namespace App\User\Domain\Entity;
 
 use App\Shared\Domain\Entity\AbstractEntity;
 use App\Shared\Domain\ValueObject\DateTime;
+use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\EntityId;
-use App\User\Domain\ValueObject\Email;
-use App\User\Domain\ValueObject\FullName;
+use App\Shared\Domain\ValueObject\FullName;
 
 /**
  * @template-extends AbstractEntity<array{

@@ -3,7 +3,7 @@
 namespace Tests\Unit\User\Domain\ValueObject;
 
 use App\Shared\Domain\Exception\InvalidValueException;
-use App\User\Domain\ValueObject\Email;
+use App\Shared\Domain\ValueObject\Email;
 
 test('sanitize ensures the input is a email string', function () {
     // Given

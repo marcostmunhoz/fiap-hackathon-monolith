@@ -3,10 +3,10 @@
 namespace Tests\Helpers\User;
 
 use App\Shared\Domain\ValueObject\DateTime;
+use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\EntityId;
+use App\Shared\Domain\ValueObject\FullName;
 use App\User\Domain\Entity\UserEntity;
-use App\User\Domain\ValueObject\Email;
-use App\User\Domain\ValueObject\FullName;
 use Illuminate\Database\ConnectionInterface;
 
 function getUserEntity(

@@ -4,14 +4,14 @@ namespace App\User\Application\UseCase;
 
 use App\Shared\Domain\Service\EntityIdGeneratorInterface;
 use App\Shared\Domain\Service\MessageProducerInterface;
+use App\Shared\Domain\ValueObject\Email;
+use App\Shared\Domain\ValueObject\FullName;
 use App\User\Application\DTO\RegisterUserInput;
 use App\User\Domain\Data\UserCreatedMessage;
 use App\User\Domain\Entity\UserEntity;
 use App\User\Domain\Exception\UserEmailAlreadyRegisteredException;
 use App\User\Domain\Repository\UserRepositoryInterface;
 use App\User\Domain\Service\PasswordHasherInterface;
-use App\User\Domain\ValueObject\Email;
-use App\User\Domain\ValueObject\FullName;
 
 readonly class RegisterUserUseCase
 {

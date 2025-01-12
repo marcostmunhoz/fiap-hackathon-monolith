@@ -2,9 +2,9 @@
 
 namespace Tests\Dummies\Shared;
 
+use App\Shared\Domain\ValueObject\Email;
 use App\User\Domain\Entity\UserEntity;
 use App\User\Domain\Repository\UserRepositoryInterface;
-use App\User\Domain\ValueObject\Email;
 
 class DummyUserRepository implements UserRepositoryInterface
 {
