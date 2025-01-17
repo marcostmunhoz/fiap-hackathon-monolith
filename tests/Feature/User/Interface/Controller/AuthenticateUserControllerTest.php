@@ -4,12 +4,14 @@ namespace Tests\Feature\User\Interface\Controller;
 
 use App\Shared\Domain\ValueObject\DateTime;
 use function Pest\Laravel\postJson;
+use function Pest\Laravel\travelTo;
 use function Tests\Helpers\User\createUserEntity;
 use function Tests\Helpers\User\getUserEntity;
 
 test('it returns HTTP 200 containing the JWT on successful authentication', function () {
     // Given
     $now = DateTime::now();
+    travelTo($now->value);
     $user = getUserEntity(hashedPassword: 'hashed-password');
     createUserEntity($user);
 
