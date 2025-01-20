@@ -14,6 +14,7 @@ class DomainException extends RuntimeException
     protected const int HTTP_UNAUTHORIZED = 401;
     protected const int HTTP_FORBIDDEN = 403;
     protected const int HTTP_NOT_FOUND = 404;
+    protected const int HTTP_METHOD_NOT_ALLOWED = 405;
     protected const int HTTP_CONFLICT = 409;
     protected const int HTTP_UNPROCESSABLE_ENTITY = 422;
 

@@ -11,6 +11,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 beforeEach(function () {
@@ -27,8 +28,9 @@ it('renders the expected exceptions', function () {
         DomainException::class,
         AuthenticationException::class,
         AuthorizationException::class,
-        ValidationException::class,
         NotFoundHttpException::class,
+        MethodNotAllowedHttpException::class,
+        ValidationException::class,
     ]);
 });
 
@@ -128,6 +130,15 @@ it('maps the exception to the corresponding DomainException', function (Exceptio
             'metadata' => [],
         ],
         404,
+    ],
+    'MethodNotAllowedHttpException' => [
+        new MethodNotAllowedHttpException(['POST']),
+        [
+            'error' => 'MethodNotAllowedException',
+            'message' => 'Method not allowed.',
+            'metadata' => [],
+        ],
+        405,
     ],
     'ValidationException' => [
         fn () => ValidationException::withMessages(['some key' => ['some value 1']]),

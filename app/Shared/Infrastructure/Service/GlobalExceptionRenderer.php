@@ -3,6 +3,7 @@
 namespace App\Shared\Infrastructure\Service;
 
 use App\Shared\Domain\Exception\DomainException;
+use App\Shared\Domain\Exception\MethodNotAllowedException;
 use App\Shared\Domain\Exception\NotFoundException;
 use App\Shared\Domain\Exception\UnauthenticatedException;
 use App\Shared\Domain\Exception\UnauthorizedException;
@@ -13,6 +14,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException as BaseValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as BaseMethodNotAllowedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -46,8 +48,9 @@ readonly class GlobalExceptionRenderer
             DomainException::class,
             AuthenticationException::class,
             AuthorizationException::class,
-            BaseValidationException::class,
             NotFoundHttpException::class,
+            BaseMethodNotAllowedException::class,
+            BaseValidationException::class,
         ];
     }
 
@@ -57,6 +60,7 @@ readonly class GlobalExceptionRenderer
             $e instanceof AuthenticationException => new UnauthenticatedException(previous: $e),
             $e instanceof AuthorizationException => new UnauthorizedException(previous: $e),
             $e instanceof NotFoundHttpException => new NotFoundException(previous: $e),
+            $e instanceof BaseMethodNotAllowedException => new MethodNotAllowedException(previous: $e),
             $e instanceof BaseValidationException => new ValidationException(previous: $e),
             default => $e
         };
