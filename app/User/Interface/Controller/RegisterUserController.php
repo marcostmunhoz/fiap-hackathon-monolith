@@ -2,10 +2,9 @@
 
 namespace App\User\Interface\Controller;
 
+use App\Shared\Interface\Response\JsonResponse;
 use App\User\Application\DTO\RegisterUserInput;
 use App\User\Application\UseCase\RegisterUserUseCase;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 
 class RegisterUserController
 {
@@ -13,6 +12,6 @@ class RegisterUserController
     {
         $useCase->execute($input);
 
-        return response()->json([], Response::HTTP_CREATED);
+        return JsonResponse::created();
     }
 }

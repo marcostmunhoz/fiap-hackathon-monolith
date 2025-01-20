@@ -3,7 +3,6 @@
 namespace App\User\Infrastructure\Repository;
 
 use App\Shared\Domain\ValueObject\Email;
-use App\Shared\Domain\ValueObject\EntityId;
 use App\Shared\Infrastructure\Repository\AbstractQueryBuilderRepository;
 use App\User\Domain\Entity\UserEntity;
 use App\User\Domain\Repository\UserRepositoryInterface;
@@ -14,7 +13,7 @@ class QueryBuilderUserRepository extends AbstractQueryBuilderRepository implemen
     {
         $data = $user->toArray();
 
-        if ($this->userExists($user->id)) {
+        if ($this->entityExistsWithId($user->id)) {
             unset($data['id']);
 
             $this->prepareQuery()
@@ -43,12 +42,5 @@ class QueryBuilderUserRepository extends AbstractQueryBuilderRepository implemen
     protected function getTable(): string
     {
         return 'users';
-    }
-
-    private function userExists(EntityId $id): bool
-    {
-        return $this->prepareQuery()
-            ->where('id', (string) $id)
-            ->exists();
     }
 }

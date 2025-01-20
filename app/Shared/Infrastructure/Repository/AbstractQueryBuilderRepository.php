@@ -18,4 +18,11 @@ abstract class AbstractQueryBuilderRepository
     {
         return $this->connection->table($this->getTable());
     }
+
+    protected function entityExistsWithId(string $id): bool
+    {
+        return $this->prepareQuery()
+            ->where('id', $id)
+            ->exists();
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace App\User\Interface\Controller;
 
+use App\Shared\Interface\Response\JsonResponse;
 use App\User\Application\DTO\AuthenticateUserInput;
 use App\User\Application\UseCase\AuthenticateUserUseCase;
-use Illuminate\Http\JsonResponse;
 
 class AuthenticateUserController
 {
@@ -12,6 +12,6 @@ class AuthenticateUserController
     {
         $output = $useCase->execute($input);
 
-        return response()->json(['data' => $output]);
+        return JsonResponse::ok($output);
     }
 }
