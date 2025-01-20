@@ -8,15 +8,16 @@ use App\Shared\Domain\ValueObject\EntityId;
 use App\Video\Domain\Enum\VideoStatus;
 
 /**
- * @template-extends AbstractEntity<array{
- *     id: string,
- *     filename: string,
- *     output_filename: string|null,
- *     status: string,
- *     user_id: string,
- *     created_at: string,
- *     updated_at: string,
- * }>
+ * @phpstan-type TEntityArray array{
+ *      id: string,
+ *      filename: string,
+ *      output_filename: string|null,
+ *      status: string,
+ *      user_id: string,
+ *      created_at: string,
+ *      updated_at: string,
+ *  }
+ * @template-extends AbstractEntity<TEntityArray>
  */
 class VideoEntity extends AbstractEntity
 {

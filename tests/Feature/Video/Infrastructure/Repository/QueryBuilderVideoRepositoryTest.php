@@ -6,6 +6,7 @@ use App\Video\Infrastructure\Repository\QueryBuilderVideoRepository;
 use function Tests\Helpers\Video\createVideoEntity;
 use function Tests\Helpers\Video\findVideoEntity;
 use function Tests\Helpers\Video\getVideoEntity;
+use function Tests\Helpers\Video\getVideoUserEntity;
 
 beforeEach(function () {
     $this->sut = new QueryBuilderVideoRepository(getConnection());
@@ -46,4 +47,21 @@ test('save updates existing video', function () {
         ->status->toEqual($updatedEntity->status)
         ->createdAt->equals($updatedEntity->createdAt)->toBeTrue()
         ->updatedAt->not()->equals($updatedEntity->updatedAt)->toBeTrue();
+});
+
+test('list returns the user videos for the given page', function () {
+    // Given
+    $user = getVideoUserEntity();
+    $video1 = getVideoEntity(userId: $user->id);
+    createVideoEntity($video1);
+    $video2 = getVideoEntity(userId: $user->id);
+    createVideoEntity($video2);
+    $video3 = createVideoEntity();
+
+    // When
+    $result = $this->sut->list($user->id, 2, 1);
+
+    // Then
+    expect($result)->toHaveCount(1)
+        ->and($result[0])->id->equals($video2->id)->toBeTrue();
 });
