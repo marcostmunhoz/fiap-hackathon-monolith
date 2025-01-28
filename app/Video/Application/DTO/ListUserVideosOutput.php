@@ -8,7 +8,10 @@ use Spatie\LaravelData\Support\Transformation\TransformationContext;
 use Spatie\LaravelData\Support\Transformation\TransformationContextFactory;
 
 /**
- * @phpstan-import-type TEntityArray from VideoEntity
+ * @phpstan-type OutputArray array{
+ *     id: string,
+ *     status: string,
+ * }[]
  */
 class ListUserVideosOutput extends Data
 {
@@ -19,12 +22,15 @@ class ListUserVideosOutput extends Data
     }
 
     /**
-     * @return TEntityArray[]
+     * @return OutputArray
      */
     public function transform(TransformationContext | TransformationContextFactory | null $transformationContext = null): array
     {
         return array_map(
-            static fn (VideoEntity $video) => $video->toArray(),
+            static fn (VideoEntity $video) => [
+                'id' => (string) $video->id,
+                'status' => $video->status->value,
+            ],
             $this->videos
         );
     }

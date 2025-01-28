@@ -33,6 +33,17 @@ class VideoEntity extends AbstractEntity
         parent::__construct($id, $createdAt, $updatedAt);
     }
 
+    public function isProcessed(): bool
+    {
+        return $this->status === VideoStatus::PROCESSED;
+    }
+
+    public function markAsProcessed(string $outputFilename): void
+    {
+        $this->status = VideoStatus::PROCESSED;
+        $this->outputFilename = $outputFilename;
+    }
+
     public function toArray(): array
     {
         return [

@@ -29,12 +29,7 @@ test('it returns HTTP 200 with expected response format', function () {
             'data' => [
                 '*' => [
                     'id',
-                    'filename',
-                    'output_filename',
-                    'user_id',
                     'status',
-                    'created_at',
-                    'updated_at',
                 ],
             ],
         ]);

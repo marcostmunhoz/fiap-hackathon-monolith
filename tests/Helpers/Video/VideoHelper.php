@@ -41,7 +41,7 @@ function getVideoEntity(
         filename: $filename ?? faker()->word(),
         userId: $userId ?? new EntityId(faker()->uuid()),
         status: $status ?? VideoStatus::PENDING,
-        outputFilename: $outputFilename ?? faker()->word(),
+        outputFilename: $outputFilename,
         createdAt: $createdAt ?? new DateTime(now()),
         updatedAt: $updatedAt ?? new DateTime(now())
     );
