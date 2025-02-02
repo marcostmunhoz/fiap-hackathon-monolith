@@ -9,7 +9,10 @@ use App\Shared\Domain\ValueObject\FullName;
 use App\Video\Domain\Entity\VideoEntity;
 use App\Video\Domain\Entity\VideoUserEntity;
 use App\Video\Domain\Enum\VideoStatus;
+use App\Video\Infrastructure\Contracts\VideoUserAuthGuardInterface;
 use Illuminate\Database\ConnectionInterface;
+use Tests\Dummies\Video\DummyVideoUserAuthGuard;
+use function Pest\Laravel\instance;
 
 function getVideoUserEntity(
     ?EntityId $id = null,
@@ -47,6 +50,21 @@ function getVideoEntity(
     );
 }
 
+function createVideoUserEntity(?VideoUserEntity $entity = null, ?ConnectionInterface $connection = null): VideoUserEntity
+{
+    if (!$entity) {
+        $entity = getVideoUserEntity();
+    }
+
+    if (!$connection) {
+        $connection = getConnection();
+    }
+
+    $connection->table('users')->insert($entity->toArray() + ['hashed_password' => 'hashed_password']);
+
+    return $entity;
+}
+
 function createVideoEntity(?VideoEntity $entity = null, ?ConnectionInterface $connection = null): VideoEntity
 {
     if (!$entity) {
@@ -78,4 +96,17 @@ function findVideoEntity(EntityId $id, ?ConnectionInterface $connection = null):
     }
 
     return VideoEntity::fromArray((array) $data);
+}
+
+function getVideoUserAuthenticationHeaders(): array
+{
+    return ['Authorization' => 'Bearer video-user-token'];
+}
+
+function fakeVideoUserAuthentication(?VideoUserEntity $user = null): VideoUserAuthGuardInterface
+{
+    $guard = new DummyVideoUserAuthGuard($user ?? getVideoUserEntity());
+    instance(VideoUserAuthGuardInterface::class, $guard);
+
+    return $guard;
 }

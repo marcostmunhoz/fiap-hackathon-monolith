@@ -16,11 +16,7 @@ readonly class JsonResponse implements Responsable
 
     public function toResponse($request): BaseJsonResponse
     {
-        $data = $this->data
-            ? ['data' => $this->data]
-            : [];
-
-        return new BaseJsonResponse($data, $this->status);
+        return new BaseJsonResponse(['data' => $this->data], $this->status);
     }
 
     public static function created(?JsonSerializable $data = null): self

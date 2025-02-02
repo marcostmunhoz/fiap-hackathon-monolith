@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
             SubstituteBindings::class,
             'throttle:default',
         ]);
+
+        $middleware->alias([
+            'authenticate.video-user' => \App\Video\Interface\Middleware\AuthenticateVideoUserMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $renderer = resolve(GlobalExceptionRenderer::class);

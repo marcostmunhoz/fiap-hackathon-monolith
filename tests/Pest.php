@@ -50,3 +50,4 @@ function getConnection(): ConnectionInterface
 {
     return test()->getConnection();
 }
+

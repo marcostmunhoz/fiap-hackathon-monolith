@@ -12,6 +12,24 @@ beforeEach(function () {
     $this->sut = new QueryBuilderVideoRepository(getConnection());
 });
 
+test('find returns the video entity', function () {
+    // Given
+    $entity = createVideoEntity();
+
+    // When
+    $result = $this->sut->find($entity->id);
+
+    // Then
+    expect($result)->not()->toBeNull()
+        ->id->equals($entity->id)->toBeTrue()
+        ->filename->toEqual($entity->filename)
+        ->outputFilename->toEqual($entity->outputFilename)
+        ->userId->equals($entity->userId)->toBeTrue()
+        ->status->toEqual($entity->status)
+        ->createdAt->equals($entity->createdAt)->toBeTrue()
+        ->updatedAt->equals($entity->updatedAt)->toBeTrue();
+});
+
 test('save creates new video', function () {
     // Given
     $entity = getVideoEntity();

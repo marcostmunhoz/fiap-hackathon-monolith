@@ -38,9 +38,10 @@ it('correctly uploads video to filesystem and produces a message', function () {
     $input = new UploadUserVideoInput($this->file);
 
     // When
-    $this->sut->execute($this->user, $input);
+    $output = $this->sut->execute($this->user, $input);
 
     // Then
+    expect($output->id)->equals($entityId)->toBeTrue();
     $this->filesystemSpy
         ->shouldHaveReceived('putFileAs')
         ->once()

@@ -5,6 +5,7 @@ namespace App\Video\Application\UseCase;
 use App\Shared\Domain\Service\EntityIdGeneratorInterface;
 use App\Shared\Domain\Service\MessageProducerInterface;
 use App\Video\Application\DTO\UploadUserVideoInput;
+use App\Video\Application\DTO\UploadUserVideoOutput;
 use App\Video\Domain\Data\VideoUploadedMessage;
 use App\Video\Domain\Entity\VideoEntity;
 use App\Video\Domain\Entity\VideoUserEntity;
@@ -21,7 +22,7 @@ readonly class UploadUserVideoUseCase
     ) {
     }
 
-    public function execute(VideoUserEntity $user, UploadUserVideoInput $input): void
+    public function execute(VideoUserEntity $user, UploadUserVideoInput $input): UploadUserVideoOutput
     {
         $id = $this->entityIdGenerator->generate();
         $extension = $input->file->getExtension() ?: 'mp4';
@@ -43,5 +44,7 @@ readonly class UploadUserVideoUseCase
                 $user->email->value
             )
         );
+
+        return new UploadUserVideoOutput($video->id);
     }
 }

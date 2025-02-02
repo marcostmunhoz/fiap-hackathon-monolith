@@ -7,6 +7,8 @@ use App\Video\Domain\Entity\VideoEntity;
 
 interface VideoRepositoryInterface
 {
+    public function find(EntityId $id): VideoEntity;
+
     public function save(VideoEntity $video): void;
 
     /**

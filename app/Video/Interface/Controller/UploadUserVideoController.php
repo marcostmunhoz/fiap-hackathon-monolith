@@ -5,17 +5,17 @@ namespace App\Video\Interface\Controller;
 use App\Shared\Interface\Response\JsonResponse;
 use App\Video\Application\DTO\UploadUserVideoInput;
 use App\Video\Application\UseCase\UploadUserVideoUseCase;
-use App\Video\Domain\Entity\VideoUserEntity;
+use App\Video\Infrastructure\Contracts\VideoUserAuthGuardInterface;
 
 class UploadUserVideoController
 {
     public function __invoke(
-        VideoUserEntity $user,
+        VideoUserAuthGuardInterface $authGuard,
         UploadUserVideoInput $input,
         UploadUserVideoUseCase $useCase
     ): JsonResponse {
-        $useCase->execute($user, $input);
+        $output = $useCase->execute($authGuard->resolve(), $input);
 
-        return JsonResponse::created();
+        return JsonResponse::created($output);
     }
 }
