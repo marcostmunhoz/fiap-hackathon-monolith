@@ -2,9 +2,8 @@
 
 namespace App\Video\Infrastructure\ServiceProvider;
 
-use App\Shared\Domain\Service\MessageProducerInterface;
-use App\Shared\Infrastructure\Service\FakeMessageProducer;
 use App\Video\Application\UseCase\DownloadUserVideoUseCase;
+use App\Video\Application\UseCase\ListUserVideosUseCase;
 use App\Video\Application\UseCase\UploadUserVideoUseCase;
 use App\Video\Domain\Repository\VideoRepositoryInterface;
 use App\Video\Domain\Repository\VideoUserRepositoryInterface;
@@ -39,12 +38,12 @@ class VideoServiceProvider extends ServiceProvider
             ->needs(Filesystem::class)
             ->give(static fn () => Storage::disk('videos'));
 
-        $this->app->when(DownloadUserVideoUseCase::class)
+        $this->app->when(ListUserVideosUseCase::class)
             ->needs(Filesystem::class)
             ->give(static fn () => Storage::disk('videos'));
 
-        $this->app->when(UploadUserVideoUseCase::class)
-            ->needs(MessageProducerInterface::class)
-            ->give(FakeMessageProducer::class);
+        $this->app->when(DownloadUserVideoUseCase::class)
+            ->needs(Filesystem::class)
+            ->give(static fn () => Storage::disk('videos'));
     }
 }

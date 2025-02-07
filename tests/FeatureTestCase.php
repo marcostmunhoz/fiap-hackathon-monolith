@@ -3,6 +3,8 @@
 namespace Tests;
 
 use App\Shared\Domain\Service\JwtGeneratorInterface;
+use App\Shared\Domain\Service\MessageProducerInterface;
+use App\Shared\Infrastructure\Service\FakeMessageProducer;
 use App\User\Domain\Service\PasswordHasherInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Dummies\Shared\DummyJwtGenerator;
@@ -26,6 +28,10 @@ class FeatureTestCase extends TestCase
         $this->instance(
             PasswordHasherInterface::class,
             new DummyPasswordHasher()
+        );
+        $this->instance(
+            MessageProducerInterface::class,
+            new FakeMessageProducer()
         );
     }
 }

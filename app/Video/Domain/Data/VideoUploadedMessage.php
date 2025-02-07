@@ -6,6 +6,8 @@ use App\Shared\Domain\Data\AbstractMessage;
 
 readonly class VideoUploadedMessage extends AbstractMessage
 {
+    private const string EVENT = 'video-uploaded';
+
     public function __construct(
         public string $filename,
         public string $userName,
@@ -16,9 +18,12 @@ readonly class VideoUploadedMessage extends AbstractMessage
     public function jsonSerialize(): array
     {
         return [
-            'filename' => $this->filename,
-            'user_name' => $this->userName,
-            'user_email' => $this->userEmail,
+            'event' => self::EVENT,
+            'data' => [
+                'filename' => $this->filename,
+                'user_name' => $this->userName,
+                'user_email' => $this->userEmail,
+            ],
         ];
     }
 }

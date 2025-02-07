@@ -3,11 +3,9 @@
 namespace App\User\Application\UseCase;
 
 use App\Shared\Domain\Service\EntityIdGeneratorInterface;
-use App\Shared\Domain\Service\MessageProducerInterface;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\FullName;
 use App\User\Application\DTO\RegisterUserInput;
-use App\User\Domain\Data\UserCreatedMessage;
 use App\User\Domain\Entity\UserEntity;
 use App\User\Domain\Exception\UserEmailAlreadyRegisteredException;
 use App\User\Domain\Repository\UserRepositoryInterface;
@@ -18,8 +16,7 @@ readonly class RegisterUserUseCase
     public function __construct(
         private UserRepositoryInterface $userRepository,
         private EntityIdGeneratorInterface $entityIdGenerator,
-        private PasswordHasherInterface $passwordHasher,
-        private MessageProducerInterface $messageProducer,
+        private PasswordHasherInterface $passwordHasher
     ) {
     }
 
@@ -43,9 +40,5 @@ readonly class RegisterUserUseCase
         );
 
         $this->userRepository->save($user);
-
-        $this->messageProducer->send(
-            new UserCreatedMessage($user->name->firstName)
-        );
     }
 }

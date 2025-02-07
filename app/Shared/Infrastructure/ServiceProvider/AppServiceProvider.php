@@ -4,7 +4,9 @@ namespace App\Shared\Infrastructure\ServiceProvider;
 
 use App\Shared\Domain\Service\EntityIdGeneratorInterface;
 use App\Shared\Domain\Service\JwtGeneratorInterface;
+use App\Shared\Domain\Service\MessageProducerInterface;
 use App\Shared\Infrastructure\Config\AppConfig;
+use App\Shared\Infrastructure\Service\DatabaseMessageProducer;
 use App\Shared\Infrastructure\Service\SignedJwtGenerator;
 use App\Shared\Infrastructure\Service\UuidV4EntityIdGenerator;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -30,6 +32,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             JwtGeneratorInterface::class,
             SignedJwtGenerator::class,
+        );
+
+        $this->app->bind(
+            MessageProducerInterface::class,
+            function () {
+                return new DatabaseMessageProducer();
+            }
         );
 
         $this->app->singleton(AppConfig::class);
