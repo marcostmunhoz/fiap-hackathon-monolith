@@ -131,7 +131,7 @@ return [
     | This value is the version of your application.
     |
     */
-    'version' => '1.0.0',
+    'version' => env('APP_VERSION'),
 
     'jwt' => [
         'private_key' => env('JWT_PRIVATE_KEY'),
