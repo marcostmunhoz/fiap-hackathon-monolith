@@ -27,6 +27,7 @@ jobs:
           file: ./docker/app/Dockerfile
           target: development
           tags: monolith:${{ github.sha }}
+          load: true
 
       - name: Run tests
         run: |
