@@ -56,6 +56,7 @@ ENV PHP_OPCACHE_ENABLE=1
 ENV APP_ENV=production
 
 COPY --chown=www-data:www-data . /var/www/html
+COPY --chown=www-data:www-data ./.env.production /var/www/html/.env
 
 RUN composer install --no-dev --no-interaction --no-plugins --no-scripts &&\
     composer dump-autoload --optimize
