@@ -1,4 +1,4 @@
-FROM serversideup/php:8.4-fpm-nginx-alpine as base
+FROM serversideup/php:8.4-fpm-nginx-alpine AS base
 
 WORKDIR /var/www/html
 
@@ -12,7 +12,7 @@ ENV AUTORUN_LARAVEL_STORAGE_LINK=false
 ENV AUTORUN_LARAVEL_VIEW_CACHE=false
 ENV APP_VERSION=1.0.0
 
-FROM base as development
+FROM base AS development
 
 USER root
 
@@ -33,7 +33,7 @@ RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
 
 USER www-data
 
-FROM base as ci
+FROM base AS ci
 
 ENV AUTORUN_ENABLED=false
 
@@ -48,7 +48,7 @@ COPY --chown=www-data:www-data . /var/www/html
 
 RUN composer install --no-interaction --no-plugins --no-scripts
 
-FROM base as production
+FROM base AS production
 
 ENV AUTORUN_LARAVEL_CONFIG_CACHE=true
 ENV AUTORUN_LARAVEL_EVENT_CACHE=true
