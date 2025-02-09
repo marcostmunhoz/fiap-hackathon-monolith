@@ -1,5 +1,7 @@
 FROM serversideup/php:8.4-fpm-nginx-alpine as base
 
+WORKDIR /var/www/html
+
 ENV AUTORUN_ENABLED=true
 ENV AUTORUN_LARAVEL_MIGRATION=true
 ENV AUTORUN_LARAVEL_MIGRATION_ISOLATION=false
