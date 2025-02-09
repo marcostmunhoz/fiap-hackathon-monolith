@@ -32,6 +32,21 @@ RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
 
 USER www-data
 
+FROM base as ci
+
+ENV AUTORUN_ENABLED=false
+
+USER root
+
+RUN install-php-extensions xdebug \
+  && echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+USER www-data
+
+COPY --chown=www-data:www-data . /var/www/html
+
+RUN composer install --no-interaction --no-plugins --no-scripts
+
 FROM base as production
 
 ENV AUTORUN_LARAVEL_CONFIG_CACHE=true
@@ -41,3 +56,6 @@ ENV PHP_OPCACHE_ENABLE=1
 ENV APP_ENV=production
 
 COPY --chown=www-data:www-data . /var/www/html
+
+RUN composer install --no-dev --no-interaction --no-plugins --no-scripts &&\
+    composer dump-autoload --optimize

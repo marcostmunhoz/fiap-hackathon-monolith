@@ -25,14 +25,12 @@ jobs:
         with:
           context: .
           file: ./docker/app/Dockerfile
-          target: development
+          target: ci
           tags: monolith:${{ github.sha }}
           load: true
 
       - name: Run tests
-        run: |
-          docker run monolith:${{ github.sha }} composer analyze
-          docker run monolith:${{ github.sha }} composer test:coverage
+        run: docker run --rm monolith:${{ github.sha }} composer ci
 
   build:
     runs-on: ubuntu-latest

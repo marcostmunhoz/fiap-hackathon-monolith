@@ -82,6 +82,10 @@
     ],
     "analyze": [
       "phpstan analyse"
+    ],
+    "ci": [
+      "composer analyze",
+      "composer test:coverage"
     ]
   },
   "extra": {
