@@ -55,6 +55,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Get the version from composer.json
+        id: get_version
         run: echo "VERSION=$(jq -r '.version' composer.json)" >> $GITHUB_OUTPUT
 
       - name: Build app
@@ -63,7 +64,7 @@ jobs:
           context: .
           file: ./docker/app/Dockerfile
           push: true
-          tags: marcostmunhoz/fiap-hackathon-monolith:${{ steps.build.outputs.version }}
+          tags: marcostmunhoz/fiap-hackathon-monolith:${{ steps.get_version.outputs.version }}
 
   publish:
     runs-on: ubuntu-latest
