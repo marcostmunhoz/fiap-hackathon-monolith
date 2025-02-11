@@ -121,3 +121,7 @@ test('fromTimestamp returns a new instance from a timestamp with default timezon
     // Then
     expect((string) $result)->toBe('2025-01-01T00:00:00+00:00');
 });
+
+it('assert true equals false', function () {
+    expect(true)->toBe(false);
+});
